@@ -1,0 +1,15 @@
+
+.footer-container {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer {
+  /* Your existing styles */
+}
+
+.footer a:hover {
+  /* Define your hover effect */
+  color: red; /* Change the color on hover */
+}
