@@ -20,7 +20,6 @@ const DeleteSkill = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`https://portfolio-adminn.onrender.com/api/deleteskill/${id}`);
-      // Remove the skill from the local state after successful deletion
       setSkills(skills.filter(skill => skill._id !== id));
     } catch (error) {
       console.error('Error deleting skill:', error);

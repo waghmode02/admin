@@ -43,7 +43,7 @@ const AddProject = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-
+      navigate("/");
       console.log(response.data); 
 
       toast.success('Data sent successfully!', {

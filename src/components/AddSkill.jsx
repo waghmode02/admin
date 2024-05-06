@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useNavigate} from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -27,7 +27,7 @@ const AddSkill = () => {
       formDataToSend.append('file', formData.file);
 
       await axios.post('https://portfolio-adminn.onrender.com/api/addskill', formDataToSend);
-
+      navigate("/");
       toast.success('Skill added successfully');
 
       setFormData({
