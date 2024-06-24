@@ -1,41 +1,58 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { useState } from "react";
+import { FaBars, FaTimes } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 const Header = () => {
+  const [nav, setNav] = useState(false);
+
   return (
-    <nav class="bg-black p-4">
-    <div class="container mx-auto flex flex-col lg:flex-row justify-between items-center">
-        <div class="text-white font-bold text-3xl mb-4 lg:mb-0 hover:text-orange-600 hover:cursor-pointer">
-        <Link to={"/"}>Admin</Link>
-        </div>
+    <div className="flex justify-between items-center w-full h-20 px-4 text-white bg-black fixed nav">
+      <div>
+        <Link to="/">
+          <h1 className="text-4xl font-signature ml-2  hover:text-orange-600">Admin</h1>
+        </Link>
+      </div>
 
-        <div class="lg:hidden">
-            <button class="text-white focus:outline-none">
-                    <svg
-                        class="h-6 w-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
-                    >
-                        <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M4 6h16M4 12h16m-7 6h7"
-                        ></path>
-                    </svg>
-                </button>
-        </div>
+      <ul className="hidden md:flex">
+        <li className=" px-4 text-4xl font-signature ml-2 hover:scale-105  hover:text-orange-600">
+          <Link to="/">Project</Link>
+        </li>
+        <li className="px-4 text-4xl font-signature ml-2 hover:scale-105 hover:text-orange-600">
+          <Link to={"/skill"}>Skill</Link>
+        </li>
+        <li className="px-4 text-4xl font-signature ml-2 hover:scale-105  hover:text-orange-600">
+          <Link to="/contact">Contact</Link>
+        </li>
+      </ul>
 
-        <div class="lg:flex flex-col lg:flex-row lg:space-x-4 lg:mt-0 mt-4 flex flex-col items-center text-xl">
-            <Link to={"/"} class="text-white  px-4 py-2  hover:text-orange-600">Projects</Link>
-            <Link to={"/skill"} class="text-white  px-4 py-2  hover:text-orange-600">Skill</Link>
-            <Link to={"/contact"} class="text-white  px-4 py-2  hover:text-orange-600">Contact Me</Link>
-        </div>
+      <div
+        onClick={() => setNav(!nav)}
+        className="cursor-pointer pr-4 z-10 text-gray-500 md:hidden"
+      >
+        {nav ? <FaTimes size={30} /> : <FaBars size={30} />}
+      </div>
+
+      {nav && (
+        <ul className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-screen bg-gradient-to-b from-black to-gray-800 text-gray-500">
+          <li className="px-4 cursor-pointer capitalize py-6 text-4xl hover:text-orange-600 hover:scale-105">
+            <Link onClick={() => setNav(!nav)} to="/">
+              Project
+            </Link>
+          </li>
+          <li className="px-4 cursor-pointer capitalize py-6 text-4xl hover:text-orange-600 hover:scale-105">
+            <Link onClick={() => setNav(!nav)} to="/skill">
+              Skill
+            </Link>
+          </li>
+          <li className="px-4 cursor-pointer capitalize py-6 text-4xl hover:text-orange-600 hover:scale-105">
+            <Link onClick={() => setNav(!nav)} to="/contact">
+              Contact
+            </Link>
+          </li>
+        </ul>
+      )}
     </div>
+  );
+};
 
-</nav>
-  )
-}
-
-export default Header
+export default Header;

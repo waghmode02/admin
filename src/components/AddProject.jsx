@@ -11,7 +11,9 @@ const AddProject = () => {
     demoPath: '',
     file: null
   });
- 
+
+  const [loading, setLoading] = useState(false); 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({
@@ -29,6 +31,7 @@ const AddProject = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
     try {
       const form = new FormData();
@@ -43,8 +46,6 @@ const AddProject = () => {
           'Content-Type': 'multipart/form-data'
         }
       });
-      navigate("/");
-      console.log(response.data); 
 
       toast.success('Data sent successfully!', {
         position: "top-right",
@@ -63,20 +64,26 @@ const AddProject = () => {
         demoPath: '',
         file: null
       });
-      window.location.reload(); 
-
     } catch (error) {
       console.error(error);
-  
+      toast.error('Failed to upload data', {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
     } finally {
-      setLoading(false); 
+      setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-lg mx-auto">
+    <div className="max-w-lg mx-auto min-h-screen flex flex-col justify-center items-center">
       <form onSubmit={handleSubmit}>
-      <div className="mb-4">
+        <div className="mb-4">
           <label htmlFor="title" className="block text-gray-700">Title</label>
           <input type="text" id="title" name="title" value={formData.title} onChange={handleChange} className="mt-1 p-2 border border-gray-300 rounded w-full" required />
         </div>
@@ -96,9 +103,19 @@ const AddProject = () => {
           <label htmlFor="file" className="block text-gray-700">Image</label>
           <input type="file" id="file" name="file" onChange={handleFileChange} className="mt-1 p-2 border border-gray-300 rounded w-full" required />
         </div>
-        <button type="submit" className={`bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded`} >Upload</button>
-
+        <button
+          type="submit"
+          className={`bg-blue-500 hover:bg-blue-700 text-white py-2 px-4 rounded ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
+          disabled={loading}
+        >
+          {loading ? 'Uploading...' : 'Upload'}
+        </button>
       </form>
+      {loading && (
+        <div className="mt-4 text-blue-500">
+          Project is being uploaded...
+        </div>
+      )}
     </div>
   );
 };

@@ -27,7 +27,7 @@ const DeleteSkill = () => {
   };
 
   return (
-    <div className="max-w-screen-lg mx-auto mt-10">
+    <div className=" min-h-screen max-w-screen-lg mx-auto flex flex-col justify-center items-center">
       <h1 className="text-2xl font-bold mb-5">Delete Skill</h1>
       <table className="w-full table-auto">
         <thead>
